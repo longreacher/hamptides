@@ -61,17 +61,32 @@ def generate_dashboard():
     plt.plot(times, heights, color='#1565c0', linewidth=2.5, label='Water Level')
     plt.fill_between(times, heights, color='#e3f2fd', alpha=0.5)
     
-    # Highlight High and Low points on the chart layout
+    # Highlight High points (Labels STACKED BELOW the dot)
     for dt, h in high_tides:
         plt.scatter(dt, h, color='#2e7d32', s=50, zorder=5)
-        plt.annotate(f"{h:.2f}m", (dt, h), textcoords="offset points", xytext=(0,10), ha='center', weight='bold', color='#1b5e20')
+        time_str = dt.strftime('%I:%M %p').lstrip('0')
+        # xytext=(0, -25) moves the text block down below the high peak marker
+        plt.annotate(f"{h:.2f}m\n{time_str}", (dt, h), 
+                     textcoords="offset points", xytext=(0, -25), 
+                     ha='center', va='top', weight='bold', color='#1b5e20',
+                     bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="#a5d6a7", alpha=0.8, zorder=4))
+                     
+    # Highlight Low points (Labels cleanly placed below or offset depending on y-axis floor)
     for dt, h in low_tides:
         plt.scatter(dt, h, color='#c62828', s=50, zorder=5)
-        plt.annotate(f"{h:.2f}m", (dt, h), textcoords="offset points", xytext=(0,-15), ha='center', weight='bold', color='#b71c1c')
+        time_str = dt.strftime('%I:%M %p').lstrip('0')
+        # Placed slightly below the low points
+        plt.annotate(f"{h:.2f}m\n{time_str}", (dt, h), 
+                     textcoords="offset points", xytext=(0, -25), 
+                     ha='center', va='top', weight='bold', color='#b71c1c',
+                     bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="#ef9a9a", alpha=0.8, zorder=4))
 
     # Formatting axes cleanly
     plt.title(f"Westfield Tidal Predictions — {tomorrow.strftime('%A, %B %d, %Y')}", fontsize=14, pad=15, weight='bold')
     plt.ylabel("Water Height (m)")
+    
+    # TWEAK: Start the Y-axis exactly at 0.2 meters
+    plt.ylim(bottom=0.2)
     
     ax = plt.gca()
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%I:%M %p'))
@@ -86,7 +101,7 @@ def generate_dashboard():
     plt.savefig(graph_path, dpi=150)
     plt.close()
 
-   # Ensure these lines reference high_tides and low_tides correctly:
+    # --- Construct the HTML Strings ---
     high_html = "".join([f"<li><strong>{dt.strftime('%I:%M %p').lstrip('0')}:</strong> {h:.2f}m</li>" for dt, h in high_tides])
     low_html = "".join([f"<li><strong>{dt.strftime('%I:%M %p').lstrip('0')}:</strong> {h:.2f}m</li>" for dt, h in low_tides])
 
@@ -159,7 +174,7 @@ def generate_dashboard():
 """
     with open("index.html", "w") as f:
         f.write(html_content)
-    print("Dashboard and chart built successfully!")
+    print("Dashboard and chart built successfully with new layout tweaks!")
 
 if __name__ == "__main__":
     generate_dashboard()
