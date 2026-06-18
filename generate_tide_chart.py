@@ -86,7 +86,7 @@ def generate_dashboard():
     plt.savefig(graph_path, dpi=150)
     plt.close()
 
-    # --- Construct the HTML Strings ---
+   # Ensure these lines reference high_tides and low_tides correctly:
     high_html = "".join([f"<li><strong>{dt.strftime('%I:%M %p').lstrip('0')}:</strong> {h:.2f}m</li>" for dt, h in high_tides])
     low_html = "".join([f"<li><strong>{dt.strftime('%I:%M %p').lstrip('0')}:</strong> {h:.2f}m</li>" for dt, h in low_tides])
 
