@@ -71,14 +71,15 @@ def generate_dashboard():
                      ha='center', va='top', weight='bold', color='#1b5e20',
                      bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="#a5d6a7", alpha=0.8, zorder=4))
                      
-    # Highlight Low points (Labels cleanly placed below or offset depending on y-axis floor)
+   # Highlight Low points (Labels cleanly flipped ABOVE the dot)
     for dt, h in low_tides:
         plt.scatter(dt, h, color='#c62828', s=50, zorder=5)
         time_str = dt.strftime('%I:%M %p').lstrip('0')
-        # Placed slightly below the low points
+        
+        # CHANGED: xytext=(0, 15) moves it 15 points up, va='bottom' aligns it cleanly above the dot
         plt.annotate(f"{h:.2f}m\n{time_str}", (dt, h), 
-                     textcoords="offset points", xytext=(0, -25), 
-                     ha='center', va='top', weight='bold', color='#b71c1c',
+                     textcoords="offset points", xytext=(0, 15), 
+                     ha='center', va='bottom', weight='bold', color='#b71c1c',
                      bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="#ef9a9a", alpha=0.8, zorder=4))
 
     # Formatting axes cleanly
