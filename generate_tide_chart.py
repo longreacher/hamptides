@@ -10,7 +10,7 @@ def generate_dashboard():
         print(f"Error: {filepath} not found.")
         return
 
-    # --- CHANGED: Target today's date instead of tomorrow's ---
+    # Target today's date
     current_day = date.today()
     
     times = []
@@ -39,7 +39,7 @@ def generate_dashboard():
             except ValueError:
                 continue
 
-            # --- CHANGED: Collect data matching today's window ---
+            # Collect data matching today's window
             if dt.date() == current_day:
                 times.append(dt)
                 heights.append(height_val)
@@ -101,7 +101,7 @@ def generate_dashboard():
     plt.savefig(graph_path, dpi=150)
     plt.close()
 
-    # Build the final index page
+    # Build the final index page with the text headers removed completely
     html_content = f"""<!DOCTYPE html>
 <html>
 <head>
@@ -120,19 +120,15 @@ def generate_dashboard():
             max-width: 800px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }}
-        h1 {{ font-size: 1.6rem; color: #111; margin-bottom: 5px; }}
-        .date-sub {{ font-size: 1.1rem; color: #666; margin-bottom: 15px; }}
-        img {{ max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #ddd; }}
+        img {{ max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #ddd; display: block; margin: 0 auto; }}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Westfield Tide Station</h1>
-        <div class="date-sub">{current_day.strftime('%A, %B %d, %Y')}</div>
         <img src="{graph_path}" alt="Today's Tide Curve">
     </div>
 </body>
@@ -140,7 +136,7 @@ def generate_dashboard():
 """
     with open("index.html", "w") as f:
         f.write(html_content)
-    print("Dashboard updated to pull today's data!")
+    print("Dashboard updated: HTML headers removed successfully!")
 
 if __name__ == "__main__":
     generate_dashboard()
