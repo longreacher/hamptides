@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Westfield Tide Dashboard</title>
+    <title>Westfield固定潮汐图表</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -20,45 +20,15 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        h1 { font-size: 1.5rem; color: #111; margin-bottom: 5px; }
-        .date-sub { font-size: 1.1rem; color: #666; margin-bottom: 25px; }
-        .tide-lists {
-            display: flex;
-            justify-content: space-around;
-            text-align: left;
-            margin: 20px 0;
-            gap: 15px;
-        }
-        .box {
-            flex: 1;
-            padding: 15px;
-            border-radius: 8px;
-            background: #fafafa;
-            border: 1px solid #eee;
-        }
-        ul { list-style: none; padding: 0; margin: 0; }
-        li { margin: 10px 0; font-size: 1.1rem; }
-        .high-title { color: #2e7d32; border-bottom: 2px solid #a5d6a7; padding-bottom: 5px; margin-top: 0; }
-        .low-title { color: #c62828; border-bottom: 2px solid #ef9a9a; padding-bottom: 5px; margin-top: 0; }
-        img { max-width: 100%; height: auto; margin-top: 20px; border-radius: 6px; border: 1px solid #ddd; }
+        h1 { font-size: 1.6rem; color: #111; margin-bottom: 5px; }
+        .date-sub { font-size: 1.1rem; color: #666; margin-bottom: 15px; }
+        img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Westfield Tide Station</h1>
         <div class="date-sub">Sunday, June 21, 2026</div>
-        
-        <div class="tide-lists">
-            <div class="box">
-                <h3 class="high-title">▲ High Tides</h3>
-                <ul><li><strong>7:42 AM:</strong> 0.57m</li><li><strong>8:13 PM:</strong> 0.53m</li></ul>
-            </div>
-            <div class="box">
-                <h3 class="low-title">▼ Low Tides</h3>
-                <ul><li><strong>2:25 AM:</strong> 0.18m</li><li><strong>2:54 PM:</strong> 0.16m</li></ul>
-            </div>
-        </div>
-
         <img src="assets/tide_chart.png" alt="Tomorrow's Tide Curve">
     </div>
 </body>
