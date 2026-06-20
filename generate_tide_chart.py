@@ -10,8 +10,8 @@ def generate_dashboard():
         print(f"Error: {filepath} not found.")
         return
 
-    # Target tomorrow's date
-    tomorrow = date.today() + timedelta(days=1)
+    # --- CHANGED: Target today's date instead of tomorrow's ---
+    current_day = date.today()
     
     times = []
     heights = []
@@ -39,8 +39,8 @@ def generate_dashboard():
             except ValueError:
                 continue
 
-            # Only collect data matching tomorrow's full window
-            if dt.date() == tomorrow:
+            # --- CHANGED: Collect data matching today's window ---
+            if dt.date() == current_day:
                 times.append(dt)
                 heights.append(height_val)
                 
@@ -51,7 +51,7 @@ def generate_dashboard():
                     low_tides.append((dt, height_val))
 
     if not times:
-        print(f"No data found for tomorrow ({tomorrow}).")
+        print(f"No data found for today ({current_day}).")
         return
 
     # --- Generate the Graph Curve ---
@@ -80,10 +80,10 @@ def generate_dashboard():
                      bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="#ef9a9a", alpha=0.8, zorder=4))
 
     # Formatting axes cleanly
-    plt.title(f"Westfield Tidal Predictions — {tomorrow.strftime('%A, %B %d, %Y')}", fontsize=14, pad=15, weight='bold')
+    plt.title(f"Westfield Tidal Predictions — {current_day.strftime('%A, %B %d, %Y')}", fontsize=14, pad=15, weight='bold')
     plt.ylabel("Water Height (m)")
     
-    # --- CHANGED: Dynamic Y-Axis Limits with 0.1m Buffer ---
+    # Dynamic Y-Axis Limits with 0.1m Buffer
     y_min = min(heights) - 0.1
     y_max = max(heights) + 0.1
     plt.ylim(y_min, y_max)
@@ -132,15 +132,15 @@ def generate_dashboard():
 <body>
     <div class="container">
         <h1>Westfield Tide Station</h1>
-        <div class="date-sub">{tomorrow.strftime('%A, %B %d, %Y')}</div>
-        <img src="{graph_path}" alt="Tomorrow's Tide Curve">
+        <div class="date-sub">{current_day.strftime('%A, %B %d, %Y')}</div>
+        <img src="{graph_path}" alt="Today's Tide Curve">
     </div>
 </body>
 </html>
 """
     with open("index.html", "w") as f:
         f.write(html_content)
-    print("Dashboard updated with dynamic Y-axis scaling!")
+    print("Dashboard updated to pull today's data!")
 
 if __name__ == "__main__":
     generate_dashboard()
