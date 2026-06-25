@@ -80,7 +80,7 @@ def generate_dashboard():
                      bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="#ef9a9a", alpha=0.8, zorder=4))
 
     # Formatting axes cleanly
-    plt.title(f"Westfield Tidal Predictions — {current_day.strftime('%A, %B %d, %Y')}", fontsize=14, pad=15, weight='bold')
+    plt.title(f"Westfield Tidal Predictions — {current_day.strftime('%A, %B %d')}", fontsize=14, pad=15, weight='bold')
     plt.ylabel("Water Height (m)")
     
     # Dynamic Y-Axis Limits with 0.1m Buffer
