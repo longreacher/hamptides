@@ -9022,5 +9022,3 @@
 2026-09-24 7:47	-0.742177836	RISING		
 2026-09-24 8:02	-0.736680061	RISING		
 2026-09-24 8:17	-0.726935519	RISING		
-"""source"":""STATION"	-0.712976957	RISING	"""copyright"":""©2026Marea|GeneratedusingGESLA3sea?levelrecords,https://gesla.org,https://doi.org/10.31223/X5MP65,https://doi.org/10.1002/gdj3.42,http://doi.org/10.7289/V5V40S7W"	
-				
