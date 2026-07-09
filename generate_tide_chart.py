@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 def generate_dashboard():
-    filepath = "Westfield Tides.txt"
+    filepath = "Hampton Tides.txt"
     if not os.path.exists(filepath):
         print(f"Error: {filepath} not found.")
         return
@@ -105,7 +105,7 @@ def generate_dashboard():
     html_content = f"""<!DOCTYPE html>
 <html>
 <head>
-    <title>Westfield Tide Dashboard</title>
+    <title>Hampton Tide Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
