@@ -10,36 +10,37 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-- name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        # Forces Git to use your high-privilege Fine-Grained token with Write rights
-        token: ${{ secrets.AUTOMATION_TOKEN }}
-        persist-credentials: true
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Forces Git to use your high-privilege Fine-Grained token with Write rights
+          token: ${{ secrets.AUTOMATION_TOKEN }}
+          persist-credentials: true
 
-    - name: Install Charting Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install matplotlib numpy
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-    - name: Run Tide Chart Generator
-      run: python generate_tide_chart.py
+      - name: Install Charting Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib numpy
 
-    - name: Commit and Push Updated Dashboard
-      run: |
-        git config --local user.name "github-actions[bot]"
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        
-        # Add both the index.html page and the newly rendered chart graphic
-        git add index.html assets/tide_chart.png
-        
-        if ! git diff --cached --quiet; then
-          git commit -m "Automated Dashboard Update: Refreshed tide predictions"
-          git push
-        else
-          echo "No changes detected. Dashboard is already up to date."
-        fi
+      - name: Run Tide Chart Generator
+        run: python generate_tide_chart.py
+
+      - name: Commit and Push Updated Dashboard
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Add both the index.html page and the newly rendered chart graphic
+          git add index.html assets/tide_chart.png
+          
+          if ! git diff --cached --quiet; then
+            git commit -m "Automated Dashboard Update: Refreshed tide predictions"
+            git push
+          else
+            echo "No changes detected. Dashboard is already up to date."
+          fi
