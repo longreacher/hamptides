@@ -10,9 +10,12 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repository
+- name: Checkout Repository
       uses: actions/checkout@v4
-
+      with:
+        # Forces Git to use your high-privilege Fine-Grained token with Write rights
+        token: ${{ secrets.AUTOMATION_TOKEN }}
+        persist-credentials: true
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
